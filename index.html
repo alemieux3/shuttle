@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive technical and historical analysis of the NASA Space Shuttle Program (STS).">
+    <title>STS Research | The Space Transportation System</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <style>
+        :root {
+            --bg-black: #050508;
+            --bg-card: rgba(20, 20, 35, 0.7);
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-red: #ef4444;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border: rgba(255, 255, 255, 0.1);
+            --max-width: 1200px;
+            --nav-height: 70px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND --- */
+        .stars-canvas {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, #111122 0%, #050508 100%);
+            z-index: -2;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(5, 5, 8, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: var(--max-width);
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-btn.active { color: var(--accent-purple); }
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-purple);
+        }
+
+        /* --- LAYOUT --- */
+        main {
+            padding-top: calc(var(--nav-height) + 2rem);
+            padding-bottom: 5rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+
+        .page-section { display: none; opacity: 0; }
+        .page-section.active { display: block; }
+
+        /* --- TYPOGRAPHY --- */
+        h1 { font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -2px; }
+        h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: var(--accent-purple); }
+        h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.75rem; color: white; }
+        p { color: var(--text-secondary); margin-bottom: 1.5rem; max-width: 900px; }
+        strong { color: white; }
+
+        /* --- CARDS --- */
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
+
+        .mission-card {
+            display: flex;
+            flex-direction: column;
+            border-radius: 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .mission-header {
+            padding: 1.5rem 2rem;
+            background: rgba(0,0,0,0.3);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mission-body { padding: 2rem; }
+
+        /* --- TAGS & UI --- */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .tag-red { background: rgba(239, 68, 68, 0.2); color: #ff9999; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .tag-blue { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
+
+        .crew-box { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .crew-pill {
+            background: rgba(255,255,255,0.05);
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .spec-list { list-style: none; font-size: 0.9rem; color: var(--text-secondary); }
+        .spec-list li { margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.3rem; }
+
+        /* --- CHART --- */
+        .chart-row { margin-bottom: 1.2rem; }
+        .chart-info { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-secondary); }
+        .chart-track { height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
+        .chart-fill { height: 100%; width: 0; background: var(--accent-blue); transition: width 1.5s ease-out; }
+
+        @media (max-width: 600px) {
+            .nav-links { gap: 1rem; }
+            .nav-btn { font-size: 0.6rem; letter-spacing: 0.5px; }
+            h1 { font-size: 2.5rem; }
+            .logo span { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars-canvas"></div>
+    <div class="ambient-glow"></div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="goTo('home')">STS<span>_RESEARCH</span></a>
+            <ul class="nav-links">
+                <li><button class="nav-btn active" onclick="goTo('home')">History</button></li>
+                <li><button class="nav-btn" onclick="goTo('specs')">Specs</button></li>
+                <li><button class="nav-btn" onclick="goTo('missions')">Missions</button></li>
+                <li><button class="nav-btn" onclick="goTo('legacy')">Legacy</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HOME SECTION -->
+        <section id="home" class="page-section active">
+            <h1 class="anim-up">TECHNICAL ANALYSIS</h1>
+            <p class="anim-up">The Space Transportation System (STS) represents one of the most complex engineering endeavors in human history. Operating from 1981 to 2011, it provided the United States with a reusable means of accessing low Earth orbit (LEO).</p>
+            
+            <div class="grid">
+                <div class="glass-card anim-up">
+                    <h2>Post-WWII Origins</h2>
+                    <p>Rooted in early NACA research and the X-15 program, the Shuttle was formalized in 1972 under Nixon. It was envisioned as a versatile "space truck" to make spaceflight routine.</p>
+                </div>
+                <div class="glass-card anim-up">
+                    <h2>Approach & Landing (ALT)</h2>
+                    <p>In 1977, the Enterprise (OV-101) proved the orbiter could land as a glider. Released from a Boeing 747 at 23,000 feet, it completed five free flights at Edwards AFB.</p>
+                </div>
+                <div class="glass-card anim-up">
+                    <h2>Architecture Overview</h2>
+                    <p>The system consisted of three main components: the Orbiter Vehicle (OV), two Solid Rocket Boosters (SRBs), and the External Tank (ET), creating a partially reusable stack.</p>
+                </div>
+                <div class="glass-card anim-up">
+                    <h2>Strategic Evolution</h2>
+                    <p>Over thirty years, the program shifted from satellite delivery to deep scientific research (Spacelab) and the monumental task of assembling the International Space Station.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPECS SECTION -->
+        <section id="specs" class="page-section">
+            <h1 class="anim-up">ENGINEERING SPECS</h1>
+            
+            <div class="glass-card anim-up">
+                <h3>The Orbiter Vehicle (OV)</h3>
+                <p>The OV functioned as both a spacecraft and a high-performance glider. It featured a Thermal Protection System (TPS) made of 24,000+ silica tiles and Reinforced Carbon-Carbon (RCC).</p>
+                <div class="grid" style="margin-top: 1rem;">
+                    <ul class="spec-list">
+                        <li><strong>Max Launch Weight:</strong> 240,000 lbs</li>
+                        <li><strong>Length:</strong> 122 feet</li>
+                        <li><strong>Payload Bay:</strong> 60 x 15 feet</li>
+                        <li><strong>TPS Temperature Resistance:</strong> Up to 3,000°F</li>
+                    </ul>
+                    <ul class="spec-list">
+                        <li><strong>On-orbit Velocity:</strong> 17,500 mph</li>
+                        <li><strong>Power Source:</strong> Three Fuel Cells (LOX/LH2)</li>
+                        <li><strong>Hydraulics:</strong> Three Auxiliary Power Units (APUs)</li>
+                        <li><strong>Landing Gear:</strong> Deployed via gravity/linkage</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="glass-card anim-up">
+                    <h3>Solid Rocket Boosters (SRB)</h3>
+                    <p>Largest solid-propellant motors ever flown. Provided 80% of lift-off thrust. Reusable via parachute recovery in the Atlantic.</p>
+                    <ul class="spec-list">
+                        <li><strong>Thrust (ea):</strong> 3,300,000 lbs</li>
+                        <li><strong>Burn Duration:</strong> 2 minutes (120s)</li>
+                        <li><strong>Propellant:</strong> Ammonium Perchlorate/Aluminum</li>
+                        <li><strong>Separation Altitude:</strong> ~150,000 feet</li>
+                    </ul>
+                </div>
+                <div class="glass-card anim-up">
+                    <h3>External Tank (ET)</h3>
+                    <p>The structural backbone during launch. Only non-reusable part. Contained 1.6M lbs of propellant (LOX/LH2).</p>
+                    <ul class="spec-list">
+                        <li><strong>Height:</strong> 153.8 feet</li>
+                        <li><strong>Propellant Mix:</strong> Liquid Oxygen/Hydrogen</li>
+                        <li><strong>Insulation:</strong> Closed-cell polyisocyanurate foam</li>
+                        <li><strong>Disposal:</strong> Atmospheric breakup over Indian Ocean</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass-card anim-up">
+                <h3>RS-25 Main Engines (SSME)</h3>
+                <p>Located in the orbiter's aft. World's first reusable, high-pressure, staged-combustion rocket engines. They throttled between 65% and 109% of rated power.</p>
+                <p><strong>Performance:</strong> Vacuum Specific Impulse (Isp) of 452 seconds, among the most efficient liquid-fuel engines ever built.</p>
+            </div>
+        </section>
+
+        <!-- MISSIONS SECTION -->
+        <section id="missions" class="page-section">
+            <h1 class="anim-up">FLIGHT HISTORY</h1>
+
+            <div class="mission-card anim-up">
+                <div class="mission-header">
+                    <strong>STS-1</strong>
+                    <span class="tag">Columbia • April 1981</span>
+                </div>
+                <div class="mission-body">
+                    <h3>First Orbital Flight</h3>
+                    <p>The first mission of the program. Tested all major systems under flight conditions. John Young and Robert Crippen completed 36 orbits before landing at Edwards AFB.</p>
+                </div>
+            </div>
+
+            <div class="mission-card anim-up">
+                <div class="mission-header">
+                    <strong>STS-31</strong>
+                    <span class="tag">Discovery • April 1990</span>
+                </div>
+                <div class="mission-body">
+                    <h3>Hubble Space Telescope</h3>
+                    <p>Discovery deployed the HST into a 332-mile orbit. This began a 20-year cycle of five servicing missions (STS-61, 82, 103, 109, 125) that revolutionized astronomy.</p>
+                </div>
+            </div>
+
+            <div class="mission-card anim-up" style="border-color: var(--accent-red);">
+                <div class="mission-header" style="background: rgba(239, 68, 68, 0.05);">
+                    <strong style="color: var(--accent-red);">STS-51L / STS-107</strong>
+                    <span class="tag tag-red">Safety Analysis</span>
+                </div>
+                <div class="mission-body">
+                    <h3>Critical Failures</h3>
+                    <p><strong>Challenger (1986):</strong> O-ring failure in the right SRB due to cold temps. <br><strong>Columbia (2003):</strong> Foam strike damaged the wing's RCC panels, leading to disintegration on reentry.</p>
+                </div>
+            </div>
+
+            <div class="mission-card anim-up">
+                <div class="mission-header">
+                    <strong>STS-88</strong>
+                    <span class="tag tag-blue">Endeavour • Dec 1998</span>
+                </div>
+                <div class="mission-body">
+                    <h3>ISS Unity Mating</h3>
+                    <p>The first shuttle mission dedicated to ISS assembly. Crew mated the Unity node with the Russian Zarya module, initiating the largest international orbital laboratory.</p>
+                </div>
+            </div>
+
+            <div class="mission-card anim-up">
+                <div class="mission-header">
+                    <strong>STS-135</strong>
+                    <span class="tag">Atlantis • July 2011</span>
+                </div>
+                <div class="mission-body">
+                    <h3>The Final Flight</h3>
+                    <p>Atlantis delivered critical supplies to the ISS via the Raffaello module. After 30 years and 135 missions, the fleet's "wheels stop" marked the end of an era.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEGACY SECTION -->
+        <section id="legacy" class="page-section">
+            <h1 class="anim-up">LONG-TERM LEGACY</h1>
+            <div class="grid">
+                <div class="glass-card anim-up">
+                    <h3>Total Program Data</h3>
+                    <div class="chart-row">
+                        <div class="chart-info"><span>Total Flights</span><span>135</span></div>
+                        <div class="chart-track"><div class="chart-fill" style="width: 100%; background: var(--accent-purple);"></div></div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-info"><span>Total Astronauts</span><span>355</span></div>
+                        <div class="chart-track"><div class="chart-fill" style="width: 80%; background: var(--accent-blue);"></div></div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-info"><span>ISS Missions</span><span>37</span></div>
+                        <div class="chart-track"><div class="chart-fill" style="width: 27%; background: #4f46e5;"></div></div>
+                    </div>
+                </div>
+                <div class="glass-card anim-up">
+                    <h3>Scientific Impact</h3>
+                    <p>The program enabled Spacelab, a reusable laboratory that hosted 22 missions for life sciences and material research. It also pioneered satellite retrieval and repair (e.g., Solar Max, Palapa-B2).</p>
+                </div>
+            </div>
+
+            <div class="glass-card anim-up">
+                <h3>Technological Spinoffs</h3>
+                <p>Technologies developed for the Shuttle led to: <strong>advanced water purification systems</strong> for disaster relief, <strong>digital imaging</strong> improvements for medical CT/MRI scans, and <strong>ventricular assist devices</strong> for heart patients.</p>
+            </div>
+
+            <div class="glass-card anim-up">
+                <h3>Orbiter Locations</h3>
+                <div class="grid" style="font-size: 0.9rem;">
+                    <p><strong>Discovery:</strong> Smithsonian Udvar-Hazy, VA<br><strong>Atlantis:</strong> Kennedy Space Center, FL</p>
+                    <p><strong>Endeavour:</strong> California Science Center, CA<br><strong>Enterprise:</strong> Intrepid Museum, NY</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function goTo(id) {
+            const current = document.querySelector('.page-section.active');
+            const target = document.getElementById(id);
+            if (current === target) return;
+
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                b.classList.remove('active');
+                if(b.innerText.toLowerCase() === id || (id==='home' && b.innerText==='History')) b.classList.add('active');
+            });
+
+            anime({
+                targets: current,
+                opacity: 0,
+                translateY: 20,
+                duration: 400,
+                easing: 'easeInOutQuad',
+                complete: () => {
+                    current.classList.remove('active');
+                    target.classList.add('active');
+                    window.scrollTo(0,0);
+                    
+                    anime({
+                        targets: target,
+                        opacity: [0, 1],
+                        translateY: [20, 0],
+                        duration: 600,
+                        easing: 'easeOutQuart'
+                    });
+
+                    anime({
+                        targets: `#${id} .anim-up`,
+                        opacity: [0, 1],
+                        translateY: [30, 0],
+                        delay: anime.stagger(100),
+                        easing: 'easeOutQuart'
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+            anime({
+                targets: '#home .anim-up',
+                opacity: [0, 1],
+                translateY: [30, 0],
+                delay: anime.stagger(150),
+                easing: 'easeOutQuart'
+            });
+        });
+    </script>
+</body>
+</html>
