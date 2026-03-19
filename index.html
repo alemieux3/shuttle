@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Comprehensive technical and historical analysis of the NASA Space Shuttle Program (STS).">
-    <title>STS Research | The Space Transportation System</title>
+    <title>U.S. Space Shuttle Program | History and Missions</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,204 +13,11 @@
     
     <!-- Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-
+    <link rel="stylesheet" href="css/styles.css">
     <style>
-        :root {
-            --bg-black: #050508;
-            --bg-card: rgba(20, 20, 35, 0.7);
-            --accent-purple: #8b5cf6;
-            --accent-blue: #3b82f6;
-            --accent-red: #ef4444;
-            --text-primary: #f9fafb;
-            --text-secondary: #9ca3af;
-            --border: rgba(255, 255, 255, 0.1);
-            --max-width: 1200px;
-            --nav-height: 70px;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg-black);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* --- BACKGROUND --- */
-        .stars-canvas {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 50% 50%, #111122 0%, #050508 100%);
-            z-index: -2;
-        }
-
-        .ambient-glow {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: var(--nav-height);
-            background: rgba(5, 5, 8, 0.9);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-        }
-
-        .nav-container {
-            width: 100%;
-            max-width: var(--max-width);
-            padding: 0 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-weight: 900;
-            font-size: 1.2rem;
-            letter-spacing: -0.5px;
-            color: var(--text-primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-
-        .nav-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            cursor: pointer;
-            padding: 0.5rem 0;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-btn.active { color: var(--accent-purple); }
-        .nav-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent-purple);
-        }
-
-        /* --- LAYOUT --- */
-        main {
-            padding-top: calc(var(--nav-height) + 2rem);
-            padding-bottom: 5rem;
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding-left: 1.25rem;
-            padding-right: 1.25rem;
-        }
-
-        .page-section { display: none; opacity: 0; }
-        .page-section.active { display: block; }
-
-        /* --- TYPOGRAPHY --- */
-        h1 { font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -2px; }
-        h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: var(--accent-purple); }
-        h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.75rem; color: white; }
-        p { color: var(--text-secondary); margin-bottom: 1.5rem; max-width: 900px; }
-        strong { color: white; }
-
-        /* --- CARDS --- */
-        .glass-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 1.25rem;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
-
-        .mission-card {
-            display: flex;
-            flex-direction: column;
-            border-radius: 1.25rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .mission-header {
-            padding: 1.5rem 2rem;
-            background: rgba(0,0,0,0.3);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .mission-body { padding: 2rem; }
-
-        /* --- TAGS & UI --- */
-        .tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.65rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        .tag-red { background: rgba(239, 68, 68, 0.2); color: #ff9999; border: 1px solid rgba(239, 68, 68, 0.3); }
-        .tag-blue { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
-
-        .crew-box { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .crew-pill {
-            background: rgba(255,255,255,0.05);
-            padding: 0.3rem 0.7rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .spec-list { list-style: none; font-size: 0.9rem; color: var(--text-secondary); }
-        .spec-list li { margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.3rem; }
-
-        /* --- CHART --- */
-        .chart-row { margin-bottom: 1.2rem; }
-        .chart-info { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-secondary); }
-        .chart-track { height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
-        .chart-fill { height: 100%; width: 0; background: var(--accent-blue); transition: width 1.5s ease-out; }
-
-        @media (max-width: 600px) {
-            .nav-links { gap: 1rem; }
-            .nav-btn { font-size: 0.6rem; letter-spacing: 0.5px; }
-            h1 { font-size: 2.5rem; }
-            .logo span { display: none; }
-        }
+        .card-img { width: 100%;
+            height: auto !important;
+            overflow:hidden; }
     </style>
 </head>
 <body>
@@ -220,7 +27,7 @@
 
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo" onclick="goTo('home')">STS<span>_RESEARCH</span></a>
+            <a href="#" class="logo" onclick="goTo('home')">U.S. Space Shuttle Program | History &amp; Missions</span></a>
             <ul class="nav-links">
                 <li><button class="nav-btn active" onclick="goTo('home')">History</button></li>
                 <li><button class="nav-btn" onclick="goTo('specs')">Specs</button></li>
@@ -235,23 +42,37 @@
         <section id="home" class="page-section active">
             <h1 class="anim-up">TECHNICAL ANALYSIS</h1>
             <p class="anim-up">The Space Transportation System (STS) represents one of the most complex engineering endeavors in human history. Operating from 1981 to 2011, it provided the United States with a reusable means of accessing low Earth orbit (LEO).</p>
+            <p class="anim-up">The Space Transportation System (STS), commonly referred to as the Space Shuttle program, represents one of the most complex engineering endeavors in human history. Operating from 1981 to 2011, the program was designed to provide the United States with a reusable, reliable, and cost-effective means of accessing low Earth orbit (LEO). Over thirty years and 135 missions, the shuttle fleet—comprising the orbiters Columbia, Challenger, Discovery, Atlantis, and Endeavour—fundamentally transformed the landscape of space exploration, satellite deployment, and international scientific cooperation.<sup>1</sup> This report provides an exhaustive technical and historical analysis of the program, detailing the evolution of its design, the technical specifications of its components, the narrative of its flight history, and the strategic implications of its successes and failures.</p>
+            <h2 class="anim-up">Conceptual Origins and Architectual Development</h2>
+            <p class="anim-up">The intellectual lineage of the Space Shuttle can be traced to the post-World War II era, where the convergence of rocket propulsion and high-speed aeronautics led to the study of winged spaceplanes. Early research by the National Advisory Committee for Aeronautics (NACA) and the subsequent formation of NASA in 1958 laid the groundwork for reusable vehicles.<sup>4</sup> Programs such as the X-15 research aircraft and the canceled X-20 Dyna-Soar demonstrated the feasibility of piloted, high-speed atmospheric flight at the edge of space.<sup>5</sup></p>
+            <h3 class="anim-up">The Post-Apollo Strategic Pivot</h3>
+            <p class="anim-up">As the Apollo program neared its conclusion in the late 1960s, NASA leadership sought a new long-term goal. In 1969, President Richard Nixon’s Space Task Group (STG) proposed a multifaceted future that included a space station, a lunar base, and a human mission to Mars.<sup>2</sup> Central to this vision was a reusable "Space Tug" or "Space Shuttle" that could provide frequent access to LEO.6 However, the economic climate of the early 1970s and a lack of public support for a massive Apollo-scale budget forced a contraction of these ambitions. NASA was eventually directed to focus solely on the development of the shuttle as a "building block" for future goals.<sup>4</sup></p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/YiepKCJHyP4?si=dsqVSOEz2Pd_pGxE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <p class="anim-up">The design phase, categorized into Phase A (preliminary feasibility) and Phase B (detailed definition), involved intense debate over the vehicle's configuration. Max Faget, a primary architect of the Mercury capsule, championed a straight-winged, fully reusable piggyback design.<sup>2</sup> However, the Department of Defense (DoD) required a large payload bay and high cross-range capability—the ability to maneuver up to 1,100 nautical miles laterally during reentry to return to a launch site after a single orbit.<sup>6</sup> These requirements necessitated the adoption of a delta-wing design and a 15-by-60-foot payload bay, which significantly influenced the final aerodynamic and structural profile of the orbiter.<sup>6</sup></p>
+            <h3 class="anim-up">Finalized Configuration and Component Roles</h3>
+            <p class="anim-up">In January 1972, President Nixon officially authorized the development of the Space Shuttle.5 To minimize development costs, NASA moved away from fully reusable designs in favor of a "Stage 1.5" architecture consisting of three primary elements: the Orbiter Vehicle, the External Tank (ET), and two Solid Rocket Boosters (SRBs).<sup>2</sup></p>
+
             
             <div class="grid">
                 <div class="glass-card anim-up">
                     <h2>Post-WWII Origins</h2>
                     <p>Rooted in early NACA research and the X-15 program, the Shuttle was formalized in 1972 under Nixon. It was envisioned as a versatile "space truck" to make spaceflight routine.</p>
+                    <img src="images/X-15.jpg" alt="Experimental plane X-15" class="card-img">
                 </div>
                 <div class="glass-card anim-up">
                     <h2>Approach & Landing (ALT)</h2>
                     <p>In 1977, the Enterprise (OV-101) proved the orbiter could land as a glider. Released from a Boeing 747 at 23,000 feet, it completed five free flights at Edwards AFB.</p>
+                    <img src="images/shuttle-on-747.jpg" alt="Shuttle on top of 747" class="card-img">
                 </div>
                 <div class="glass-card anim-up">
                     <h2>Architecture Overview</h2>
                     <p>The system consisted of three main components: the Orbiter Vehicle (OV), two Solid Rocket Boosters (SRBs), and the External Tank (ET), creating a partially reusable stack.</p>
+                    <img src="images/shuttle-components.jpg" alt="Shuttle with solid rocket boosters and fuel tank on launch pad" class="card-img">
                 </div>
                 <div class="glass-card anim-up">
                     <h2>Strategic Evolution</h2>
                     <p>Over thirty years, the program shifted from satellite delivery to deep scientific research (Spacelab) and the monumental task of assembling the International Space Station.</p>
+                    <img src="images/iss.jpg" alt="International Space Station" class="card-img">
                 </div>
             </div>
         </section>
