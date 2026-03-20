@@ -119,6 +119,8 @@
         p { color: var(--text-secondary); margin-bottom: 1.5rem; max-width: 900px; }
         strong { color: white; }
         sup { font-size: smaller; }
+        th { text-align: left; }
+        td, th { padding: 6px 8px; }
         /* --- CARDS --- */
         .glass-card {
             background: var(--bg-card);

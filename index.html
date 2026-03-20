@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     
     <!-- Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <style>
         .card-img { width: 100%;
@@ -40,7 +39,8 @@
     <main>
         <!-- HOME SECTION -->
         <section id="home" class="page-section active">
-            <h1 class="anim-up">TECHNICAL ANALYSIS</h1>
+            <h1 class="anim-up">HISTORY</h1>
+            <img src="images/endeavour-bays-open-1200.jpg" alt="Space Shuttle Endeavour with bay doors open">
             <p class="anim-up">The Space Transportation System (STS) represents one of the most complex engineering endeavors in human history. Operating from 1981 to 2011, it provided the United States with a reusable means of accessing low Earth orbit (LEO).</p>
             <p class="anim-up">The Space Transportation System (STS), commonly referred to as the Space Shuttle program, represents one of the most complex engineering endeavors in human history. Operating from 1981 to 2011, the program was designed to provide the United States with a reusable, reliable, and cost-effective means of accessing low Earth orbit (LEO). Over thirty years and 135 missions, the shuttle fleet—comprising the orbiters Columbia, Challenger, Discovery, Atlantis, and Endeavour—fundamentally transformed the landscape of space exploration, satellite deployment, and international scientific cooperation.<sup>1</sup> This report provides an exhaustive technical and historical analysis of the program, detailing the evolution of its design, the technical specifications of its components, the narrative of its flight history, and the strategic implications of its successes and failures.</p>
             <h2 class="anim-up">Conceptual Origins and Architectual Development</h2>
@@ -51,6 +51,40 @@
             <p class="anim-up">The design phase, categorized into Phase A (preliminary feasibility) and Phase B (detailed definition), involved intense debate over the vehicle's configuration. Max Faget, a primary architect of the Mercury capsule, championed a straight-winged, fully reusable piggyback design.<sup>2</sup> However, the Department of Defense (DoD) required a large payload bay and high cross-range capability—the ability to maneuver up to 1,100 nautical miles laterally during reentry to return to a launch site after a single orbit.<sup>6</sup> These requirements necessitated the adoption of a delta-wing design and a 15-by-60-foot payload bay, which significantly influenced the final aerodynamic and structural profile of the orbiter.<sup>6</sup></p>
             <h3 class="anim-up">Finalized Configuration and Component Roles</h3>
             <p class="anim-up">In January 1972, President Nixon officially authorized the development of the Space Shuttle.5 To minimize development costs, NASA moved away from fully reusable designs in favor of a "Stage 1.5" architecture consisting of three primary elements: the Orbiter Vehicle, the External Tank (ET), and two Solid Rocket Boosters (SRBs).<sup>2</sup></p>
+            <table border="1" cellpadding="0" cellspacing="0" role="layout">
+                <tr>
+                    <th>Component</th>
+                    <th>Function</th>
+                    <th>Reusability</th>
+                    <th>Manufacturer</th>
+                </tr>
+                <tr>
+                    <td>Orbiter Vehicle</td>
+                    <td>Crew transport, payload bay, and flight control</td>
+                    <td>Reusable</td>
+                    <td>Rockwell International (Boeing)</td>
+                </tr>
+                <tr>
+                    <td>External Tank (ET)</td>
+                    <td>Propellant storage for Main Engines (SSMEs)</td>
+                    <td>Expendable</td>
+                    <td>Martin Marietta (Lockheed Martin)</td>
+                </tr>
+                <tr>
+                    <td>Solid Rocket Boosters (SRB)</td>
+                    <td>Initial lift-off thrust (0–2 minutes)</td>
+                    <td>Reusable (refurbished)</td>
+                    <td>Thiokol (Alliant Techsystems)</td>
+                </tr>
+                <tr>
+                    <td>Space Shuttle Main Engines</td>
+                    <td>High-performance liquid propulsion</td>
+                    <td>Reusable</td>
+                    <td>Rocketdyne (Pratt &amp; Whitney)</td>
+                </tr>
+            </table>
+
+        <p class="anim-up">This hybrid configuration sought to balance high performance with lower upfront capital expenditure, though it later introduced significant operational costs and maintenance complexities.<sup>4</sup></p>
 
             
             <div class="grid">
@@ -80,6 +114,25 @@
         <!-- SPECS SECTION -->
         <section id="specs" class="page-section">
             <h1 class="anim-up">ENGINEERING SPECS</h1>
+            <h2 class="anim-up">Technical Architecture and Propulsion Systems</h2>
+            <p class="anim-up">the Space Shuttle remains the most complex flying machine ever built, integrating diverse technologies from cryogenics, materials science, and data flight control systems. At liftoff, the entire system weighed approximately 2,040,000 kg (4.5 million pounds).<sup>8</sup></p>
+            <h3 class="anim-up">The Orbiter Vehicle (OV)</h3>
+            <p class="anim-up">The orbiter measurement specifications were consistent across the fleet, measuring 122 feet in length with a wingspan of 78 feet.<sup>8</sup> The fuselage was divided into three main sections: the forward fuselage (crew cabin), the mid-fuselage (payload bay), and the aft fuselage (engines and propulsion systems).<sup>8</sup></p>
+            <p class="anim-up">The Thermal Protection System (TPS) was perhaps the orbiter's most critical innovation. To withstand reentry temperatures reaching , the vehicle was covered in approximately 24,000 individual silica tiles.6 These tiles were designed to dissipate heat so effectively that they could be held by the edges while the center remained red-hot. Different types of TPS were used based on the expected heat load: Reinforced Carbon-Carbon (RCC) for the nose cap and wing leading edges, and High-temperature Reusable Surface Insulation (HRSI) for the underside.<sup>8</sup></p>
+            <h3 class="anim-up">Space Shuttle Main Engines (SSME)</h3>
+            <p class="anim-up">The three SSMEs (designated RS-25) were the world's first large-scale staged-combustion cycle engines.<sup>11</sup> They burned a mixture of liquid hydrogen (fuel) and liquid oxygen (oxidizer) at a ratio of 6:1.<sup>8</sup> The engines were designed to be throttleable between 65% and 109% of their rated power level.<sup>11</sup></p>
+            
+            <p class="anim-up">The thrust generated by each SSME in a vacuum was approximately 2.2 MN (492,000 lbf) with a specific impulse (Isp) of 455 seconds.<sup>9</sup></p>
+            <h3 class="anim-up">Solid Rocket Boosters and the External Tank</h3>
+            <p class="anim-up">The two SRBs provided approximately 71% of the total thrust required for liftoff.8 Each booster produced 13 MN (2.9 million lbf) of thrust and burned for approximately 124 seconds.<sup>9</sup> The fuel was a solid propellant mixture consisting of ammonium perchlorate (oxidizer), atomized aluminum powder (fuel), and iron oxide (catalyst).<sup>8</sup></p>
+            <p class="anim-up">The External Tank (ET) was the largest component, standing 153.8 feet tall.<sup>11</sup> It was the only part of the system that was not reused, burning up in the atmosphere after separating from the orbiter just before orbital velocity was reached.<sup>8</sup></p>
+            <h2 class="anim-up">Atmospheric Flight Testing: The Enterprise (OV-101)</h2>
+            <p class="anim-up">Before the shuttle could be cleared for orbital flight, NASA conducted the Approach and Landing Tests (ALT) program using the orbiter Enterprise.<sup>1</sup> Construction began in June 1974, and the vehicle was rolled out in 1976.17 Enterprise lacked a functional heat shield and engines, as its purpose was to validate the aerodynamic handling of the orbiter in the lower atmosphere.<sup>16</sup></p>
+            <p class="anim-up">The ALT program, conducted at Edwards Air Force Base in 1977, involved mating Enterprise to the Shuttle Carrier Aircraft (SCA), a modified Boeing 747.<sup>16</sup> Five "captive-inactive" flights, three "captive-active" flights with a crew on board, and five "free flights" were completed.<sup>5</sup> During free flights, the orbiter was released from the SCA at altitudes between 19,000 and 26,000 feet, gliding to a landing on the Rogers Dry Lake bed or the concrete runway at Edwards.16 These tests revealed a susceptibility to Pilot-Induced Oscillation (PIO) during landing, which led to critical flight control software updates before the first orbital mission.<sup>16</sup></p>
+
+
+
+
             
             <div class="glass-card anim-up">
                 <h3>The Orbiter Vehicle (OV)</h3>
@@ -229,17 +282,20 @@
             </div>
         </section>
     </main>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script>
         function goTo(id) {
             const current = document.querySelector('.page-section.active');
             const target = document.getElementById(id);
             if (current === target) return;
 
+
             document.querySelectorAll('.nav-btn').forEach(b => {
                 b.classList.remove('active');
                 if(b.innerText.toLowerCase() === id || (id==='home' && b.innerText==='History')) b.classList.add('active');
             });
+
+
 
             anime({
                 targets: current,
@@ -273,10 +329,17 @@
 
         window.addEventListener('load', () => {
             anime({
+                targets: '#home',
+                opacity: [0, 1],
+                translateY: [20, 0],
+                duration: 600,
+                easing: 'easeOutQuart'
+            });
+            anime({
                 targets: '#home .anim-up',
                 opacity: [0, 1],
                 translateY: [30, 0],
-                delay: anime.stagger(150),
+                delay: anim.stagger(150),
                 easing: 'easeOutQuart'
             });
         });
